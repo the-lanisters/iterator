@@ -18,7 +18,7 @@ function validUser(user) {
 
 const signUp = (req, res, next) => {
   if (validUser(req.body)) {
-    Database.getOneByEmail(req.body.email).then(user => {
+    Database.getOneUserByEmail(req.body.email).then(user => {
       console.log('user', user);
       // if user not found
       if (!user) {
@@ -28,10 +28,9 @@ const signUp = (req, res, next) => {
           // insert user in db
           const user = {
             email: req.body.email,
-            password: hash,
-            created_at: new Date()
+            password: hash
           };
-          Database.create(user).then(id => {
+          Database.createUser(user).then(id => {
             // return id as json
             res.json({
               id,
@@ -54,7 +53,7 @@ const signUp = (req, res, next) => {
 const signIn = (req, res, next) => {
   if (validUser(req.body)) {
     // check to see if in DB
-    Database.getOneByEmail(req.body.email).then(user => {
+    Database.getOneUserByEmail(req.body.email).then(user => {
       console.log('user', user);
       if (user) {
         // compare entered password with hashed password in db
