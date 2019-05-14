@@ -1,12 +1,14 @@
 import React from 'react';
-import Login from './Auth/Login';
-import Signup from './Auth/Signup';
+import Login from './Components/Auth/Login';
+import Signup from './Components/Auth/Signup';
+import MainContainer from './Containers/MainContainer';
 
 const App = () => {
   return (
     // <div>My React App</div>
     // <Login />
-    <Signup />
+    // <Signup />
+    <MainContainer />
   );
 };
 
