@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 function validUser(user) {
   //check if user and password
-  const validUser = typeof user.email === 'string' && user.email.trim() != '';
+  const validUser = typeof user.user === 'string' && user.user.trim() != '';
   const validPassword =
     typeof user.password === 'string' &&
     user.password.trim() != '' &&
@@ -18,16 +18,16 @@ function validUser(user) {
 
 const signUp = (req, res, next) => {
   if (validUser(req.body)) {
-    Database.getOneUserByEmail(req.body.email).then(user => {
+    Database.getOneUserByUsername(req.body.user).then(user => {
       console.log('user', user);
       // if user not found
       if (!user) {
-        // then this is a unique email
+        // then this is a unique user
         // hash password - bcrypt.hash(myPlaintextPassword, saltRounds)
         bcrypt.hash(req.body.password, 10).then(hash => {
           // insert user in db
           const user = {
-            email: req.body.email,
+            user: req.body.user,
             password: hash
           };
           Database.createUser(user).then(id => {
@@ -40,8 +40,8 @@ const signUp = (req, res, next) => {
           // redirect
         });
       } else {
-        //email in use
-        next(new Error('Email in use'));
+        //user in use
+        next(new Error('user in use'));
       }
     });
   } else {
@@ -53,7 +53,7 @@ const signUp = (req, res, next) => {
 const signIn = (req, res, next) => {
   if (validUser(req.body)) {
     // check to see if in DB
-    Database.getOneUserByEmail(req.body.email).then(user => {
+    Database.getOneUserByUsername(req.body.user).then(user => {
       console.log('user', user);
       if (user) {
         // compare entered password with hashed password in db
