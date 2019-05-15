@@ -1,11 +1,9 @@
-const router = require('express').Router();
-const Database = require('../database/database');
+const Database = require('./dbController');
 const bcrypt = require('bcrypt');
-// const cookieParser = require('cookie-parser');
 
 function validUser(user) {
   //check if user and password
-  const validUser = typeof user.user === 'string' && user.user.trim() != '';
+  const validUser = typeof user.username === 'string' && user.username.trim() != '';
   const validPassword =
     typeof user.password === 'string' &&
     user.password.trim() != '' &&
@@ -18,7 +16,7 @@ function validUser(user) {
 
 const signUp = (req, res, next) => {
   if (validUser(req.body)) {
-    Database.getOneUserByUsername(req.body.user).then(user => {
+    Database.getOneUserByUsername(req.body.username).then(user => {
       console.log('user', user);
       // if user not found
       if (!user) {
@@ -27,7 +25,7 @@ const signUp = (req, res, next) => {
         bcrypt.hash(req.body.password, 10).then(hash => {
           // insert user in db
           const user = {
-            user: req.body.user,
+            user: req.body.username,
             password: hash
           };
           Database.createUser(user).then(id => {
@@ -53,7 +51,7 @@ const signUp = (req, res, next) => {
 const signIn = (req, res, next) => {
   if (validUser(req.body)) {
     // check to see if in DB
-    Database.getOneUserByUsername(req.body.user).then(user => {
+    Database.getOneUserByUsername(req.body.username).then(user => {
       console.log('user', user);
       if (user) {
         // compare entered password with hashed password in db
