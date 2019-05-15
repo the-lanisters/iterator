@@ -1,9 +1,10 @@
 import React from 'react';
+import SubMenu from './SideBarSubMenu';
 
 const styles = {
   container: {
     position: 'absolute',
-    width: '25em',
+    width: '20em',
     border: 'solid black 1px',
     left: 0,
     top: 0,
@@ -42,22 +43,7 @@ const Sidebar = () => {
       <div style={{...styles.projectName, ...styles.title}}>
         Project Name
       </div>
-      <div style={styles.projectName}>
-        <div style={styles.title}>
-          Members
-        </div>
-        <div style={styles.membersContainer}>
-          <div style={styles.member}>
-            <img style={styles.memberImg} src="http://chittagongit.com/download/96696"/> John Smith
-          </div>
-          <div style={styles.member}>
-            <img style={styles.memberImg} src="https://image.flaticon.com/icons/png/512/219/219969.png"/> Sue Baker
-          </div>
-          <div style={styles.member}>
-            <img style={styles.memberImg} src="https://image.flaticon.com/icons/png/512/190/190614.png"/> Mister Fu
-          </div>
-        </div>
-      </div>
+      <SubMenu />
     </div>
   );
 }
