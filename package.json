@@ -15,6 +15,7 @@
   "readme": "ERROR: No README data found!",
   "_id": "reinforcement-project@1.0.0",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
@@ -24,6 +25,12 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "react-hot-loader": "^4.8.4"
+=======
+    "express": "^4.16.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0"
+>>>>>>> b8e12af701576f94b4ebd58cc5b5ab2e35349cf4
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
