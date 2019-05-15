@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = (env) => {
@@ -33,7 +32,7 @@ module.exports = (env) => {
         plugins: [new webpack.HotModuleReplacementPlugin()],
         devServer: {
             contentBase: path.join(__dirname),
-            publicPath: '/',
+            publicPath: '/build',
             hot: true,
             historyApiFallback: true,
             proxy: {
