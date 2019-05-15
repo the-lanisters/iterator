@@ -1,9 +1,10 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = (env) => {
     return {
         mode: env.NODE_ENV,
-        entry: path.join(__dirname, '/src/index.js'),
+        entry: path.join(__dirname, 'src/index.jsx'),
         output: {
             path: path.join(__dirname, 'build'),
             filename: 'bundle.js',
@@ -26,6 +27,10 @@ module.exports = (env) => {
                 }
             ]
         },
+        resolve: {
+          extensions: ['.js', '.jsx'],
+        },
+        plugins: [new webpack.HotModuleReplacementPlugin()],
         devServer: {
             contentBase: path.join(__dirname),
             publicPath: '/build',
