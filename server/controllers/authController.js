@@ -21,7 +21,7 @@ function validUser(user) {
 const signUp = (req, res, next) => {
   if (validUser(req.body)) {
     Database.getOneUserByUsername(req.body.username).then(user => {
-      console.log('user', user);
+      //console.log('user', user);
       // if user not found
       if (!user) {
         // then this is a unique user
@@ -56,7 +56,7 @@ const signIn = (req, res, next) => {
   if (validUser(req.body)) {
     // check to see if in DB
     Database.getOneUserByUsername(req.body.username).then(user => {
-      console.log('user', user);
+      //console.log('user', user);
       if (user) {
         // compare entered password with hashed password in db
         bcrypt.compare(req.body.password, user.password).then(result => {

@@ -13,7 +13,6 @@ const verifyToken = (req, res, next) => {
     res.locals.user = decode;
     next();
   });
-  //if it doesn't call res.redirect
 };
 
 //router.use(verifyToken());
