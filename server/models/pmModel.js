@@ -18,7 +18,6 @@ pool.on('error', (err, client) => {
 
 module.exports = {
 	query: (text, values, callback) => {
-		console.log('query:', text, values);
 		return pool.query(text, values, callback);
 	},
 	connect: (callback) => {
