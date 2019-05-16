@@ -21,10 +21,11 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '/../index.html'));
 });
 
-app.get('/hello', dbRoute, (req, res) => {
-  console.log('res', res.locals);
-  return res.send('hhiiiiiii');
-});
+//test route
+// app.get('/hello', dbRoute, (req, res) => {
+//   console.log('res', res.locals);
+//   return res.send('hhiiiiiii');
+// });
 
 app.get('*', (req, res) => {
   console.log(__dirname);
