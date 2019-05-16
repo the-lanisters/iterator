@@ -1,9 +1,13 @@
 const Database = require('./dbController');
 const bcrypt = require('bcrypt');
+let jwt = require('jsonwebtoken');
+let config = require('../config');
+let middleware = require('../middleware');
 
 function validUser(user) {
   //check if user and password
-  const validUser = typeof user.username === 'string' && user.username.trim() != '';
+  const validUser =
+    typeof user.username === 'string' && user.username.trim() != '';
   const validPassword =
     typeof user.password === 'string' &&
     user.password.trim() != '' &&
@@ -17,7 +21,7 @@ function validUser(user) {
 const signUp = (req, res, next) => {
   if (validUser(req.body)) {
     Database.getOneUserByUsername(req.body.username).then(user => {
-      console.log('user', user);
+      //console.log('user', user);
       // if user not found
       if (!user) {
         // then this is a unique user
@@ -30,12 +34,12 @@ const signUp = (req, res, next) => {
           };
           Database.createUser(user).then(id => {
             // return id as json
+            //id,
             res.json({
-              id,
               message: 'signup'
             });
           });
-          // redirect
+          // stay on page, rather than redirect
         });
       } else {
         //user in use
@@ -52,7 +56,7 @@ const signIn = (req, res, next) => {
   if (validUser(req.body)) {
     // check to see if in DB
     Database.getOneUserByUsername(req.body.username).then(user => {
-      console.log('user', user);
+      //console.log('user', user);
       if (user) {
         // compare entered password with hashed password in db
         bcrypt.compare(req.body.password, user.password).then(result => {
@@ -65,11 +69,23 @@ const signIn = (req, res, next) => {
               secure: isSecure, //secure when in production
               signed: true
             });
+            //adding JWT
+            let token = jwt.sign(
+              { username: req.body.username },
+              config.secret,
+              { expiresIn: '24h' }
+            );
+            res.cookie('token', token, {
+              httpOnly: true,
+              secure: isSecure
+            });
+            //
             //login in
             res.json({
               result,
               message: 'Logging in'
             });
+            // redirect ?
           } else {
             next(new Error('Invalid login'));
           }
