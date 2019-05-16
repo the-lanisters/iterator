@@ -5,16 +5,17 @@ const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/authRoute');
 const dbRoute = require('./routes/dbRoute');
 const path = require('path');
+const cors = require('cors');
 
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.use(cookieParser('keyboard_cat'));
 app.use(express.static(path.join(__dirname, '/../')));
+app.use(cors());
 
-app.get('/auth', authRoute);
+app.use('/auth', authRoute);
 //app.use('/db', dbRoute);
 
 app.get('/', (req, res) => {
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '/../index.html'));
 });
 
-// test route
+//test route
 // app.get('/hello', dbRoute, (req, res) => {
 //   console.log('res', res.locals);
 //   return res.send('hhiiiiiii');

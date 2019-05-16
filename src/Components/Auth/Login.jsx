@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+// import MainContainer from 'MainContainer';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 
 const styles = {
   container: {
@@ -6,17 +13,17 @@ const styles = {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   loginBox: {
     width: '40%',
     maxWidth: '25em',
     height: '50%',
     border: 'solid black 1px',
-    padding: '3em',
+    padding: '3em'
   },
   header: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   input: {
     display: 'block',
@@ -24,18 +31,23 @@ const styles = {
     height: '2.5em',
     marginBottom: '2em',
     padding: '0 1em',
-    fontSize: '1.25em',
+    fontSize: '1.25em'
   },
   button: {
     width: '10em',
     padding: '0.5em',
-    float: 'right',
+    float: 'right'
+  },
+  signupLink: {
+    fontSize: '10px',
+    alignItems: 'center',
+    paddingBottom: '20px'
   }
-}
+};
 
-const Login = () => {
-  const [ username, useUsername ] = useState('');
-  const [ password, usePassword ] = useState('');  
+const Login = props => {
+  const [username, useUsername] = useState('');
+  const [password, usePassword] = useState('');
 
   function handleChange(field, updatedVal) {
     if (field === 'username') useUsername(updatedVal);
@@ -46,6 +58,21 @@ const Login = () => {
     console.log(username, password);
     usePassword('');
     useUsername('');
+    fetch('http://localhost:3000/auth/signin', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(response => response.json())
+      .then(userLoggedIn => {
+        console.log('user', userLoggedIn);
+        if (userLoggedIn.result) {
+          props.history.push('/projects');
+        }
+      });
   }
 
   return (
@@ -57,25 +84,24 @@ const Login = () => {
           type="text"
           placeholder="username"
           value={username}
-          onChange={(e) => handleChange('username', e.target.value)}
+          onChange={e => handleChange('username', e.target.value)}
         />
         <input
           style={styles.input}
           type="password"
           placeholder="password"
           value={password}
-          onChange={(e) => handleChange('password', e.target.value)}
+          onChange={e => handleChange('password', e.target.value)}
         />
-        <button
-          style={styles.button}
-          type="button"
-          onClick={handleSubmit}
-        >
+        <button style={styles.button} type="button" onClick={handleSubmit}>
           Login In
         </button>
+        <p style={styles.signupLink}>
+          Not a member. <br /> <Link to="/signup">Sign Up</Link>
+        </p>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

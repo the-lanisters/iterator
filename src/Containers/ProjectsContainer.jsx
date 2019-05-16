@@ -7,15 +7,17 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
+    // border: 'solid purple 1px',
+    // backgroundColor: 'orange',
+    flexGrow: 1,
+    overflow: 'auto',
   },
   subContainer: {
     display: 'grid',
     width: '50%',
     gridTemplate: 'auto / 1fr 1fr 1fr',
-    overflow: 'auto',
   },
   box: {
-    // height: '15em',
     height: 'auto',
     margin: '1em',
     border: 'solid black 1px',
@@ -38,7 +40,7 @@ class ProjectsContainer extends Component {
   render() {
     return (
       <div style={styles.container}>
-        {/* Projects Container */}
+        Projects Container
         <div style={styles.subContainer}>
           <div
             onClick={this.createProject}
@@ -53,7 +55,7 @@ class ProjectsContainer extends Component {
           <ProjectIcon />
           <ProjectIcon />
           <ProjectIcon />
-          <ProjectIcon />
+    <ProjectIcon /> 
         </div>
       </div>
     );
