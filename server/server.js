@@ -8,14 +8,14 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser('keyboard_cat'));
+app.use(cookieParser());
 
 app.use('/auth', authRoute);
-//app.use('/db', dbRoute);
+app.use('/db', dbRoute);
 
-app.get('/hello', dbRoute, (req, res) => {
-  console.log('res', res.locals);
-  return res.send('hhiiiiiii');
-});
+// app.get('/hello', dbRoute, (req, res) => {
+//   console.log('res', res.locals);
+//   return res.send('hhiiiiiii');
+// });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
