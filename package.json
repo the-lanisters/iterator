@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --env.NODE_ENV=development --open",
     "build": "webpack --env.NODE_ENV=production",
     "prestart": "node server/dbSetup.js",
-    "start": "nodemon server/server.js"
+    "start": "nodemon server/server.js --history-api-fallback"
   },
   "keywords": [],
   "author": "",
