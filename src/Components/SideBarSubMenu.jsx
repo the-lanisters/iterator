@@ -15,11 +15,11 @@ const styles = {
     borderBottom: 'solid 1px black',
   },
   member: {
-    padding: '0.5em',
+    padding: '0.25em',
     borderBottom: 'solid 1px black',
   },
   memberImg: {
-    width: '3em',
+    width: '2em',
     height: 'auto',
     verticalAlign: 'middle',
     margin: '0.25em',
@@ -29,9 +29,33 @@ const styles = {
   }
 }
 
+const teamMembers = [
+  {
+    name: 'John Smith',
+    icon: 'http://chittagongit.com/download/96696',
+  }, {
+    name: 'Sue Baker',
+    icon: 'https://image.flaticon.com/icons/png/512/219/219969.png',
+  }, {
+    name: 'Mister Fu',
+    icon: 'https://image.flaticon.com/icons/png/512/219/219969.png',
+  }
+]
+
 const SideBarSubMenu = (props) => {
   const [active, useActive] = useState(false);
   let activeStyle = active ? {} : styles.inActive;
+
+  const memberComponents = teamMembers.map((member) => {
+    return (
+      <div style={styles.member}>
+        <img style={styles.memberImg} src={`${member.icon}`}/>
+        <span>{member.name}</span>
+        <span style={{float: 'right'}}>Delete</span>
+      </div>
+    );
+  });
+
   return (
     <div style={styles.projectName}>
         <div style={styles.title} onClick={() => useActive(!active)}>
@@ -39,14 +63,9 @@ const SideBarSubMenu = (props) => {
         </div>
         <div style={{...styles.membersContainer, ...activeStyle}}>
           <div style={styles.member}>
-            <img style={styles.memberImg} src="http://chittagongit.com/download/96696"/> John Smith
+            <img style={styles.memberImg} src="https://cdn4.iconfinder.com/data/icons/ios7-essence/22/add_plus-512.png"/> Add New Member
           </div>
-          <div style={styles.member}>
-            <img style={styles.memberImg} src="https://image.flaticon.com/icons/png/512/219/219969.png"/> Sue Baker
-          </div>
-          <div style={styles.member}>
-            <img style={styles.memberImg} src="https://image.flaticon.com/icons/png/512/190/190614.png"/> Mister Fu
-          </div>
+          {memberComponents}
         </div>
       </div>
   );
