@@ -4,4 +4,4 @@ import App from './App';
 
 if (module.hot) module.hot.accept();
 
-render(<App/>, document.querySelector('#root'));
+render(<App />, document.querySelector('#root'));
