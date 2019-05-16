@@ -1,5 +1,5 @@
 module.exports = {
-	users: `CREATE TABLE IF NOT EXISTS "users" (
+  	users: `CREATE TABLE IF NOT EXISTS "users" (
 		id SERIAL PRIMARY KEY,
 		username VARCHAR,
 		password VARCHAR
@@ -12,19 +12,19 @@ module.exports = {
 		FOREIGN KEY (user_id) REFERENCES users(id),
 		FOREIGN KEY (project_id) REFERENCES projects(id)
 	);`,
-	projects: `CREATE TABLE IF NOT EXISTS "projects" (
+  	projects: `CREATE TABLE IF NOT EXISTS "projects" (
 		id SERIAL PRIMARY KEY,
 		name VARCHAR NOT NULL,
 		description VARCHAR
 	);`,
-	sprints: `CREATE TABLE IF NOT EXISTS "sprints" (
+  	sprints: `CREATE TABLE IF NOT EXISTS "sprints" (
 		id SERIAL PRIMARY KEY,
 		startDate DATE,
 		endDate DATE,
 		project_id INTEGER,
 		FOREIGN KEY (project_id) REFERENCES projects(id)
 	);`,
-	userStories: `CREATE TABLE IF NOT EXISTS "userStories" (
+  	userStories: `CREATE TABLE IF NOT EXISTS "userStories" (
 		id SERIAL PRIMARY KEY,
 		description VARCHAR,
 		startDate DATE,
