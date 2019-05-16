@@ -13,13 +13,9 @@ app.use(cookieParser('keyboard_cat'));
 app.use('/auth', authRoute);
 //app.use('/db', dbRoute);
 
-// error handler
-// app.use(function(err, req, res, next) {
-//   res.status(err.status || 500);
-//   res.json({
-//     message: err.message,
-//     error: req.app.get('env') === 'development' ? err : {}
-//   });
-// });
+app.get('/hello', dbRoute, (req, res) => {
+  console.log('res', res.locals);
+  return res.send('hhiiiiiii');
+});
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
