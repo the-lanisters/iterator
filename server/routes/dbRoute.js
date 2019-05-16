@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const dbController = require('../controllers/dbController');
-let jwt = require('jsonwebtoken');
-let config = require('../config');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 const verifyToken = (req, res, next) => {
   //if token matches, call next()
@@ -15,6 +15,8 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-//router.use(verifyToken());
+router.post('/project', dbController.setProject);
+router.post('/addMembers', dbController.addMembers);
+router.post('/getProjects', dbController.getProjects);
 
-module.exports = verifyToken;
+module.exports = router;
