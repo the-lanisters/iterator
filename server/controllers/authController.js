@@ -53,6 +53,7 @@ const signUp = (req, res, next) => {
 };
 
 const signIn = (req, res, next) => {
+  console.log(req.body);
   if (validUser(req.body)) {
     // check to see if in DB
     Database.getOneUserByUsername(req.body.username).then(user => {

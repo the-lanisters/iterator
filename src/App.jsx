@@ -1,4 +1,7 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
+import { Provider } from 'react-redux';
+import store from './store/store.js';
 import Login from './Components/Auth/Login';
 import Signup from './Components/Auth/Signup';
 import MainContainer from './Containers/MainContainer';
@@ -6,10 +9,9 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  withRouter
 } from 'react-router-dom';
-
-import { hot } from 'react-hot-loader/root';
 
 // const styles = {
 //   nav: {
@@ -21,7 +23,7 @@ const App = () => {
   return (
     // <MainContainer />
     <Router>
-      <div>
+      {/* <div>
         <Link
           to="/login"
           style={{
@@ -47,11 +49,11 @@ const App = () => {
         >
           Sign Up
         </Link>
-      </div>
+      </div> */}
       <div>
-        <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/projects" component={MainContainer} />
+        <Route exact path="/" component={Login} />
       </div>
     </Router>
   );

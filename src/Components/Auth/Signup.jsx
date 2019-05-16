@@ -49,6 +49,20 @@ const Login = () => {
     usePassword('');
     useUsername('');
     // useEmail('');
+    fetch('http://localhost:3000/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(response => response.json())
+      .then(userLoggedIn => {
+        console.log(userLoggedIn);
+        // if (userLoggedIn.authenticated) {
+        //   res.redirect('/projects');
+        // }
+      });
   }
 
   return (

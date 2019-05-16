@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Link,
-//   Redirect
-// } from 'react-router-dom';
+// import MainContainer from 'MainContainer';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 
 const styles = {
   container: {
@@ -36,10 +37,15 @@ const styles = {
     width: '10em',
     padding: '0.5em',
     float: 'right'
+  },
+  signupLink: {
+    fontSize: '10px',
+    alignItems: 'center',
+    paddingBottom: '20px'
   }
 };
 
-const Login = () => {
+const Login = props => {
   const [username, useUsername] = useState('');
   const [password, usePassword] = useState('');
 
@@ -52,10 +58,24 @@ const Login = () => {
     console.log(username, password);
     usePassword('');
     useUsername('');
+    fetch('http://localhost:3000/auth/signin', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(response => response.json())
+      .then(userLoggedIn => {
+        console.log('user', userLoggedIn);
+        if (userLoggedIn.result) {
+          props.history.push('/projects');
+        }
+      });
   }
 
   return (
-    // <Router>
     <div style={styles.container}>
       <div style={styles.loginBox}>
         <h1 style={styles.header}>Login Page</h1>
@@ -74,11 +94,13 @@ const Login = () => {
           onChange={e => handleChange('password', e.target.value)}
         />
         <button style={styles.button} type="button" onClick={handleSubmit}>
-          <link to="/auth">Login In</link>
+          Login In
         </button>
+        <p style={styles.signupLink}>
+          Not a member. <br /> <Link to="/signup">Sign Up</Link>
+        </p>
       </div>
     </div>
-    // </Router>
   );
 };
 
